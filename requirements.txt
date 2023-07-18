@@ -1,4 +1,4 @@
-
+django_apscheduler==0.6.2
 asgiref==3.7.2
 certifi==2023.5.7
 cffi==1.15.1
