@@ -7,14 +7,8 @@
         "config": {
           "maxLambdaSize": "15mb",
           "runtime": "python3.9"
-        }
-      },
-      {
-        "src": "config/wsgi.py", 
-        "use": "@vercel/python", 
-        "config": {
-          "collectstatic": "true" 
-        }
+        },
+        "postinstall": "python manage.py collectstatic --noinput"
       },
       {
         "src": "build_files.sh",
