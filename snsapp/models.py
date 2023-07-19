@@ -134,7 +134,7 @@ def publish_token(sender, instance, **kwargs):
     expired_time=datetime.now() + timedelta(hours=5)
   )
 
-  url = f'http://127.0.0.1:8000/email_authentication/active_user/{user_active_token.token}'
+  url = f'http://oitbb.vercel.app/email_authentication/active_user/{user_active_token.token}'
   
   if instance.is_active == 0:
     # メールでURLを送る
