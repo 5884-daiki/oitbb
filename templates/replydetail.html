@@ -9,7 +9,7 @@
 <div class="container">
     <div class="alert alert-success" role="alert">
         <p>{{ object.category }}</p>
-        <p>投稿者：{{ object.user }}</p>
+        <p>投稿者：{{ object.user.username }}</p>
         <p>内容：{{ object.content }}</p>
         <p>日付：{{ object.created_at }}</p>
 
