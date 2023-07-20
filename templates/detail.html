@@ -14,8 +14,8 @@
         <p>内容：{{ object.content }}</p>
         <p>日付：{{ object.created_at }}</p>
 
-        {% if object.image %}
-        <img src="{{ object.image.url }}" alt="Post Image" class="img-fluid">
+        {% if object.image_url %}
+            <img src="{{ object.image_url }}" alt="Post Image" class="img-fluid">
         {% endif %}
         
         {% for tag in object.tags.all %}

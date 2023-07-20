@@ -12,8 +12,22 @@ from django.contrib.auth.decorators import login_required
 from . import forms
 from django.contrib import messages
 import datetime
+from imgurpython import ImgurClient
     
-##################################################################
+########################################################
+def upload_image_to_imgur(image_path):
+    # Imgur APIクライアントの設定
+    client_id = '215f02c85108db8'
+    client_secret = '4b4708ccca86dba7483fcc5023b0d0d27b23bf06'
+    
+     # ImgurClientの初期化
+    client = ImgurClient(client_id, client_secret)
+
+    # 画像をアップロード
+    uploaded_image = client.upload_from_path(image_path, anon=True)
+
+    # アップロードされた画像のURLを取得
+    return uploaded_image['link']
 
 """リスト一覧"""
 
@@ -130,6 +144,12 @@ class CreatePost(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         """投稿ユーザーをリクエストユーザーと紐付け"""
         form.instance.user = self.request.user
+
+        if 'image' in self.request.FILES:
+            image_path = self.request.FILES['image'].temporary_file_path()
+            imgur_url = upload_image_to_imgur(image_path)
+            form.instance.image = imgur_url
+
         return super().form_valid(form)
 
 
@@ -194,6 +214,11 @@ class ReplyCreate(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user  # 返信したユーザーを設定
         form.instance.category = Category.objects.get(name='返信')
         form.instance.post = parent_post  # 返信のpostフィールドに親投稿を設定
+        if 'image' in self.request.FILES:
+            image_path = self.request.FILES['image'].temporary_file_path()
+            imgur_url = upload_image_to_imgur(image_path)
+            form.instance.image = imgur_url
+
         return super().form_valid(form)
     
     def get_success_url(self):
