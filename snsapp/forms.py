@@ -64,6 +64,40 @@ class UserEditForm(forms.ModelForm):
     model = User
     fields = ('username', 'date_of_birth', 'email', 'course', 'sns', 'url_ins', 'url_twi', 'url_oth', 'circle', 'hobby', 'introduce')
 
+class ChangePasswordForm(forms.ModelForm):
+
+    password = forms.CharField(label='password', widget=forms.PasswordInput())
+    reenter_password = forms.CharField(label='re-enter password', widget=forms.PasswordInput())
+
+    class Meta():
+        model = User
+        fields = ('password',)
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        password = self.cleaned_data["password"]
+        user.set_password(password)
+        if commit:
+            user.save()
+        return user
+class ChangePasswordForm(forms.ModelForm):
+
+    password = forms.CharField(label='password', widget=forms.PasswordInput())
+    reenter_password = forms.CharField(label='re-enter password', widget=forms.PasswordInput())
+
+    class Meta():
+        model = User
+        fields = ('password',)
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        password = self.cleaned_data["password"]
+        user.set_password(password)
+        if commit:
+            user.save()
+        return user
+
+
 '''
 class ChangePasswordForm(forms.ModelForm):
     

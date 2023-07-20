@@ -433,6 +433,27 @@ def active_user(request, token):
       request, 'active_user.html'
     )
 
+from django.core.exceptions import ValidationError
+from django.contrib.auth import update_session_auth_hash
+
+
+@login_required
+def change_password(request):
+  change_password_form = forms.ChangePasswordForm(request.POST or None, instance=request.user) 
+  if change_password_form.is_valid():
+    try:
+      change_password_form.save()
+      messages.success(request, '==パスワード変更完了！==')
+      update_session_auth_hash(request, request.user)
+    except ValidationError as e:
+      change_password_form.add_error('password', e)
+  return render(
+    request, 'change_password.html', context={
+      'change_password_form': change_password_form,
+    }
+  )
+
+
 #LikeUser.as_view(), name='like-user'),
 
 #class EditUserView(View):

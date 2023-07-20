@@ -37,6 +37,7 @@ urlpatterns = [
     path('edit_user' ,views.edit_user, name='edit_user'),#要確認
     path('accounts/signup/', views.signup, name='signup'),
     path('email_authentication/active_user/<uuid:token>', views.active_user, name='active_user'),
+    path('change_password', views.change_password, name='change_password'),
 ]
 
     
