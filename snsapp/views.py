@@ -13,13 +13,15 @@ from . import forms
 from django.contrib import messages
 import datetime
 from imgurpython import ImgurClient
+from django.core.files.uploadedfile import TemporaryUploadedFile
+
     
 ########################################################
 def upload_image_to_imgur(image_path):
     # Imgur APIクライアントの設定
     client_id = '215f02c85108db8'
     client_secret = '4b4708ccca86dba7483fcc5023b0d0d27b23bf06'
-    
+
      # ImgurClientの初期化
     client = ImgurClient(client_id, client_secret)
 
@@ -145,11 +147,16 @@ class CreatePost(LoginRequiredMixin, CreateView):
         """投稿ユーザーをリクエストユーザーと紐付け"""
         form.instance.user = self.request.user
 
-        if 'image' in self.request.FILES:
-            image_path = self.request.FILES['image'].temporary_file_path()
-            imgur_url = upload_image_to_imgur(image_path)
-            form.instance.image = imgur_url
-
+        if isinstance(form.cleaned_data['image'], TemporaryUploadedFile):
+            # Do something with the temporary file path
+            image_path = form.cleaned_data['image'].temporary_file_path()
+            # Process the file as needed
+            # ...
+        else:
+            # Handle InMemoryUploadedFile as before
+            image_path = form.cleaned_data['image'].name
+            # Process the file as needed
+            # ...
         return super().form_valid(form)
 
 
