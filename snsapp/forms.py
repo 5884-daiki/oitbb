@@ -1,10 +1,14 @@
 #from unicodedata import category
 from django import forms
-from .models import Post , Reply, User
+from .models import Post , Reply, User, File
 from django.forms.widgets import ClearableFileInput#, CheckboxInput, HiddenInput
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.password_validation import validate_password
 
+class FileUploadForm(forms.ModelForm):
+    class Meta:
+        model = File
+        fields = ['file']  # 他に追加するフィールドがあればここに追記します
 
 
 class SingleFileInput(ClearableFileInput):

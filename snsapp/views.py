@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Post, Connection, Category, Reply,User, UserActiveTokens
 from django.db.models import Q
-from .forms import PostForm,ReplyForm, RegistrationForm
+from .forms import PostForm,ReplyForm, RegistrationForm, FileUploadForm
 #from taggit.managers import TaggableManager
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -452,6 +452,19 @@ def change_password(request):
       'change_password_form': change_password_form,
     }
   )
+
+
+
+
+def upload_file(request):
+    if request.method == 'POST':
+        form = FileUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('success')  # アップロード成功後のリダイレクト先
+    else:
+        form = FileUploadForm()
+    return render(request, 'upload.html', {'form': form})
 
 
 #LikeUser.as_view(), name='like-user'),

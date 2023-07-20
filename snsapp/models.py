@@ -56,8 +56,8 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     image = models.ImageField(upload_to='images/', blank=True, null=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+   # user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     like = models.ManyToManyField(User, related_name='related_post', blank=True)
     created_at = models.DateTimeField('作成日', auto_now_add=True)#gpt
     #category = models.CharField(max_length=50, default='返信')
@@ -168,3 +168,11 @@ def publish_token(sender, instance, **kwargs):
 #ログ
   print(str(url))
   print("シグナル(publish_token)が実行されました。")
+
+
+class File(models.Model):
+    file = models.FileField(upload_to='files/')
+    # 他のフィールドや関連フィールドを追加する場合はここに記述します
+
+    def __str__(self):
+        return self.file.name
