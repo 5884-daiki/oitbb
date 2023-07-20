@@ -1,9 +1,6 @@
+from django.conf import settings
 from django.db import models
-from django.contrib.auth.models import User
-from taggit.managers import TaggableManager
-
-from django.contrib.auth.models import AbstractBaseUser, Group, PermissionsMixin
-from taggit.managers import TaggableManager
+from django.contrib.auth.models import AbstractBaseUser, Group, PermissionsMixin#, User 
 from django.contrib.auth.models import UserManager
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -13,9 +10,10 @@ from datetime import datetime, timedelta, timezone
 import smtplib
 from email.mime.multipart import  MIMEMultipart
 from email.mime.text import MIMEText
+from taggit.managers import TaggableManager
 # Create your models here.
 
-
+AUTH_USER_MODEL = settings.AUTH_USER_MODEL
 class User(AbstractBaseUser, PermissionsMixin):
     COURCES = (
       ('R',"R科"),
@@ -58,11 +56,13 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     image = models.ImageField(upload_to='images/', blank=True, null=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    #user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     like = models.ManyToManyField(User, related_name='related_post', blank=True)
-    created_at = models.DateTimeField('作成日', auto_now_add=True)
+    created_at = models.DateTimeField('作成日', auto_now_add=True)#gpt
+    category = models.CharField(max_length=50, default='返信')
     #updated_at = models.DateField('更新日', auto_now=True)
-    category = models.ForeignKey(Category, verbose_name='カテゴリー', on_delete=models.PROTECT, default='返信')
+    #category = models.ForeignKey(Category, verbose_name='カテゴリー', on_delete=models.PROTECT, default='返信')
     tags = TaggableManager(blank=True)
     reply = models.TextField()
 
@@ -85,9 +85,11 @@ class Connection(models.Model):
 
 class Reply(models.Model):
     content = models.TextField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    #user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='replies')
-    category = models.ForeignKey(Category, verbose_name='カテゴリー', on_delete=models.PROTECT, default='返信')
+    #category = models.ForeignKey(Category, verbose_name='カテゴリー', on_delete=models.PROTECT, default='返信')
+    category = models.CharField(max_length=50, default='返信')
     image = models.ImageField(upload_to='images/', blank=True, null=True)
     created_at = models.DateField('作成日', auto_now_add=True)
  

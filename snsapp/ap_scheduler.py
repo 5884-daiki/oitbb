@@ -10,7 +10,7 @@ def delete_unactive():# 任意の関数名
 
 def time_test():
     dt_now = datetime.datetime.now()
-    print("タイムスタンプ" + str(dt_now))
+    #print("タイムスタンプ" + str(dt_now))
     #delete_unactive()
 
 def start():
