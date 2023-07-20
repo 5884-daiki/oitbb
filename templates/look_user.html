@@ -54,9 +54,9 @@
             <a href="{% url 'delete' item.pk %}" class="btn btn-danger ms-3" tabindex="-1" role="button" aria-disabled="true">削除</a>
             {% else %}
              {% if item.user in connection.0.following.all %}
-             <a href="{% url 'follow-user' item.pk %}" class="btn btn-danger ms-3" tabindex="-1" role="button" aria-disabled="true">フォロー解除</a>
+             <a href="{% url 'follow-home' item.pk %}" class="btn btn-danger ms-3" tabindex="-1" role="button" aria-disabled="true">フォロー解除</a>
              {% else %}
-             <a href="{% url 'follow-user' item.pk %}" class="btn btn-primary ms-3" tabindex="-1" role="button" aria-disabled="true">フォロー</a>
+             <a href="{% url 'follow-home' item.pk %}" class="btn btn-primary ms-3" tabindex="-1" role="button" aria-disabled="true">フォロー</a>
              {% endif %}
              {% if request.user in item.like.all %}
              <a href="{% url 'like-user' item.pk %}" class="like-btn add-color" tabindex="-1" role="button" aria-disabled="true"><i class="fas fa-heart"></i></a>{{item.like.count}}
