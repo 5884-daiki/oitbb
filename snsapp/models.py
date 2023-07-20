@@ -56,13 +56,13 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     image = models.ImageField(upload_to='images/', blank=True, null=True)
-    #user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     like = models.ManyToManyField(User, related_name='related_post', blank=True)
     created_at = models.DateTimeField('作成日', auto_now_add=True)#gpt
-    category = models.CharField(max_length=50, default='返信')
+    #category = models.CharField(max_length=50, default='返信')
     #updated_at = models.DateField('更新日', auto_now=True)
-    #category = models.ForeignKey(Category, verbose_name='カテゴリー', on_delete=models.PROTECT, default='返信')
+    category = models.ForeignKey(Category, verbose_name='カテゴリー', on_delete=models.PROTECT, default='募集')
     tags = TaggableManager(blank=True)
     reply = models.TextField()
 
@@ -85,11 +85,11 @@ class Connection(models.Model):
 
 class Reply(models.Model):
     content = models.TextField()
-    #user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='replies')
-    #category = models.ForeignKey(Category, verbose_name='カテゴリー', on_delete=models.PROTECT, default='返信')
-    category = models.CharField(max_length=50, default='返信')
+    category = models.ForeignKey(Category, verbose_name='カテゴリー', on_delete=models.PROTECT, default='返信')
+    #category = models.CharField(max_length=50, default='返信')
     image = models.ImageField(upload_to='images/', blank=True, null=True)
     created_at = models.DateField('作成日', auto_now_add=True)
  
