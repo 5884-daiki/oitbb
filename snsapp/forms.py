@@ -84,6 +84,7 @@ class ChangePasswordForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+    
 class ChangePasswordForm(forms.ModelForm):
 
     password = forms.CharField(label='password', widget=forms.PasswordInput())
