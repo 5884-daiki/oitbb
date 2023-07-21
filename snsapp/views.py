@@ -9,13 +9,13 @@ from .forms import PostForm,ReplyForm, RegistrationForm, FileUploadForm
 #from taggit.managers import TaggableManager
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from . import forms
+from . import forms,settings
 from django.contrib import messages
 import datetime
 from imgurpython import ImgurClient
 from django.core.files.uploadedfile import TemporaryUploadedFile
 from django.core.exceptions import ValidationError
-    
+from imager.storage import ImagerStaticStorage  # 外部ストレージの設定をインポート
 ########################################################
 def upload_image_to_imgur(image_path):
     # Imgur APIクライアントの設定
@@ -143,21 +143,21 @@ class CreatePost(LoginRequiredMixin, CreateView):
         kwargs = super().get_form_kwargs()
         return kwargs
 
-    def form_valid(self, form):
-        """投稿ユーザーをリクエストユーザーと紐付け"""
-        form.instance.user = self.request.user
-
-        if isinstance(form.cleaned_data['image'], TemporaryUploadedFile):
-            # Do something with the temporary file path
-            image_path = form.cleaned_data['image'].temporary_file_path()
-            # Process the file as needed
-            # ...
-        else:
-            # Handle InMemoryUploadedFile as before
-            image_path = form.cleaned_data['image'].name
-            # Process the file as needed
-            # ...
-        return super().form_valid(form)
+#    def form_valid(self, form):
+#        """投稿ユーザーをリクエストユーザーと紐付け"""
+#        form.instance.user = self.request.user
+#
+#        if isinstance(form.cleaned_data['image'], TemporaryUploadedFile):
+#            # Do something with the temporary file path
+#            image_path = form.cleaned_data['image'].temporary_file_path()
+#            # Process the file as needed
+#            # ...
+#        else:
+#            # Handle InMemoryUploadedFile as before
+#            image_path = form.cleaned_data['image'].name
+#            # Process the file as needed
+#            # ...
+#        return super().form_valid(form)
 
 
 class DetailPost(LoginRequiredMixin, DetailView):
