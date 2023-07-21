@@ -15,21 +15,21 @@ import datetime
 from imgurpython import ImgurClient
 from django.core.files.uploadedfile import TemporaryUploadedFile
 from django.core.exceptions import ValidationError
-from imager.storage import ImagerStaticStorage  # 外部ストレージの設定をインポート
+#from imager.storage import ImagerStaticStorage  # 外部ストレージの設定をインポート
 ########################################################
-def upload_image_to_imgur(image_path):
-    # Imgur APIクライアントの設定
-    client_id = '215f02c85108db8'
-    client_secret = '4b4708ccca86dba7483fcc5023b0d0d27b23bf06'
+#def upload_image_to_imgur(image_path):
+#    # Imgur APIクライアントの設定
+##    client_id = '215f02c85108db8'
+#    client_secret = '4b4708ccca86dba7483fcc5023b0d0d27b23bf06'
 
      # ImgurClientの初期化
-    client = ImgurClient(client_id, client_secret)
+#    client = ImgurClient(client_id, client_secret)
 
     # 画像をアップロード
-    uploaded_image = client.upload_from_path(image_path, anon=True)
+#    uploaded_image = client.upload_from_path(image_path, anon=True)
 
     # アップロードされた画像のURLを取得
-    return uploaded_image['link']
+#    return uploaded_image['link']
 
 """リスト一覧"""
 
@@ -143,9 +143,9 @@ class CreatePost(LoginRequiredMixin, CreateView):
         kwargs = super().get_form_kwargs()
         return kwargs
 
-#    def form_valid(self, form):
+    def form_valid(self, form):
 #        """投稿ユーザーをリクエストユーザーと紐付け"""
-#        form.instance.user = self.request.user
+        form.instance.user = self.request.user
 #
 #        if isinstance(form.cleaned_data['image'], TemporaryUploadedFile):
 #            # Do something with the temporary file path
@@ -157,7 +157,7 @@ class CreatePost(LoginRequiredMixin, CreateView):
 #            image_path = form.cleaned_data['image'].name
 #            # Process the file as needed
 #            # ...
-#        return super().form_valid(form)
+        return super().form_valid(form)
 
 
 class DetailPost(LoginRequiredMixin, DetailView):
