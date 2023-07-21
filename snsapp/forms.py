@@ -39,9 +39,22 @@ class ReplyForm(forms.ModelForm):
 
 class UserEditForm(forms.ModelForm):
   COURCES = (
-      ('R',"R科"),
-      ('S',"S科"),
-      ('W',"W科"),
+      ('r',"R科"),
+      ('s',"S科"),
+      ('w',"W科"),
+      ('c',"C科"),
+      ('a',"A科"),
+      ('m',"M科"),
+      ('e',"E科"),
+      ('d',"D科"),
+      ('k',"K科"),
+      ('v',"V科"),
+      ('u',"U科"),
+      ('id',"ID科"),
+      ('ic',"IC科"),
+      ('is',"IS科"),
+      ('im',"IM科"),
+      ('in',"IN科"),
   )
   username = forms.CharField(label='名前を入力してください')
   date_of_birth = forms.DateField(label='birth day')
@@ -118,6 +131,15 @@ class RegistrationForm(forms.ModelForm):
       ('r',"R科"),
       ('s',"S科"),
       ('w',"W科"),
+      ('c',"C科"),
+      ('a',"A科"),
+      ('m',"M科"),
+      ('e',"E科"),
+      ('d',"D科"),
+      ('k',"K科"),
+      ('v',"V科"),
+      ('u',"U科"),
+
   )
   username = forms.CharField(label='user name')
   date_of_birth = forms.DateField(label='birth day')

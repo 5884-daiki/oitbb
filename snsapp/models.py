@@ -16,9 +16,22 @@ from taggit.managers import TaggableManager
 AUTH_USER_MODEL = settings.AUTH_USER_MODEL
 class User(AbstractBaseUser, PermissionsMixin):
     COURCES = (
-      ('R',"R科"),
-      ('S',"S科"),
-      ('W',"W科"),
+      ('r',"R科"),
+      ('s',"S科"),
+      ('w',"W科"),
+      ('c',"C科"),
+      ('a',"A科"),
+      ('m',"M科"),
+      ('e',"E科"),
+      ('d',"D科"),
+      ('k',"K科"),
+      ('v',"V科"),
+      ('u',"U科"),
+      ('id',"ID科"),
+      ('ic',"IC科"),
+      ('is',"IS科"),
+      ('im',"IM科"),
+      ('in',"IN科"),
     )
     username = models.CharField(max_length=100, unique=False)
     email = models.EmailField(max_length=100, unique=True)
