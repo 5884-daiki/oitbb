@@ -55,8 +55,8 @@ class Category(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
-    image_url = models.URLField(blank=True, null=True)
-    image = models.ImageField(upload_to='images/', blank=True, null=True)
+    #image_url = models.URLField(blank=True, null=True)
+    #image = models.ImageField(upload_to='images/', blank=True, null=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
    # user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     like = models.ManyToManyField(User, related_name='related_post', blank=True)
@@ -91,8 +91,8 @@ class Reply(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='replies')
     category = models.ForeignKey(Category, verbose_name='カテゴリー', on_delete=models.PROTECT, default='返信')
     #category = models.CharField(max_length=50, default='返信')
-    image = models.ImageField(upload_to='images/', blank=True, null=True)
-    image_url = models.URLField(blank=True, null=True)
+    #image = models.ImageField(upload_to='images/', blank=True, null=True)
+    #image_url = models.URLField(blank=True, null=True)
     created_at = models.DateField('作成日', auto_now_add=True)
  
     #tags = TaggableManager(blank=True)
