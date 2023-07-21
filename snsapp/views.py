@@ -9,7 +9,7 @@ from .forms import PostForm,ReplyForm, RegistrationForm, FileUploadForm
 #from taggit.managers import TaggableManager
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from . import forms,settings
+from . import forms#,settings
 from django.contrib import messages
 import datetime
 from imgurpython import ImgurClient
